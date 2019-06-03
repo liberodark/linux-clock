@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# About: MTU Fix Debian
+# About: Linux Clock
 # Author: liberodark
 # License: GNU GPLv3
 
