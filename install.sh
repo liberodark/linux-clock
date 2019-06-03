@@ -56,7 +56,7 @@ Type=simple
 UMask=000
 ExecStart=/usr/bin/date +"%d %b %Y %T %Z" -s "$(curl -s --head https://google.com | grep '^Date:' | cut -d' ' -f 3-)" && /usr/sbin/hwclock -w
 TimeoutSec=30
-RestartSec=15s
+RestartSec=6h
 Restart=always
 
 [Install]
@@ -79,7 +79,7 @@ Type=simple
 UMask=000
 ExecStart=/usr/bin/date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z" && /usr/sbin/hwclock -w
 TimeoutSec=30
-RestartSec=15s
+RestartSec=6h
 Restart=always
 
 [Install]
