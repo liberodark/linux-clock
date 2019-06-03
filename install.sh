@@ -39,7 +39,7 @@ app=linux-clock
 # INSTALL NET-TOOLS
 #==============================================
 
-apt install -y net-tools
+#apt install -y date
 
 #==============================================
 # INSTALL SERVICE
