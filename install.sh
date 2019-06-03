@@ -18,7 +18,7 @@
 
   # update updater
   if [ "$update_status" = "true" ]; then
-    wget -O $0 $update_source
+    wget -O "$0" $update_source
     $0 noupdate
     exit 0
 fi ;
