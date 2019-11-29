@@ -1,0 +1,17 @@
+[Unit]
+Description=$app
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/bin/
+User=root
+Group=users
+Type=simple
+UMask=000
+ExecStart=/usr/bin/date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z" && /usr/sbin/hwclock -w
+TimeoutSec=30
+RestartSec=6h
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
