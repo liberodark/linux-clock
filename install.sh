@@ -42,47 +42,13 @@ app=linux-clock
 if ! command -v nrpe > /dev/null 2>&1; then
 echo "wget is not Installed"
 echo Install $app service
-echo "
-[Unit]
-Description=$app
-After=network.target
-
-[Service]
-WorkingDirectory=/usr/bin/
-User=root
-Group=users
-Type=simple
-UMask=000
-ExecStart=/usr/bin/date +"%d %b %Y %T %Z" -s "$(curl -s --head https://google.com | grep '^Date:' | cut -d' ' -f 3-)" && /usr/sbin/hwclock -w
-TimeoutSec=30
-RestartSec=6h
-Restart=always
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/"$app".service
+mv linux-clock-curl.service /etc/systemd/system/"$app".service
 
 else
 
 echo "wget is Installed"
 echo Install $app service
-echo "
-[Unit]
-Description=$app
-After=network.target
-
-[Service]
-WorkingDirectory=/usr/bin/
-User=root
-Group=users
-Type=simple
-UMask=000
-ExecStart=/usr/bin/date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z" && /usr/sbin/hwclock -w
-TimeoutSec=30
-RestartSec=6h
-Restart=always
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/"$app".service
+mv linux-clock-wget.service /etc/systemd/system/"$app".service
 
 fi
 
