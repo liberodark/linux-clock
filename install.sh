@@ -39,8 +39,7 @@ app=linux-clock
 # INSTALL SERVICE
 #==============================================
 
-which wget &> /dev/null
-if [ "$?" != 0 ]; then
+if ! command -v nrpe > /dev/null 2>&1; then
 echo "wget is not Installed"
 echo Install $app service
 echo "
@@ -60,7 +59,7 @@ RestartSec=6h
 Restart=always
 
 [Install]
-WantedBy=multi-user.target" > /etc/systemd/system/$app.service
+WantedBy=multi-user.target" > /etc/systemd/system/"$app".service
 
 else
 
@@ -83,7 +82,7 @@ RestartSec=6h
 Restart=always
 
 [Install]
-WantedBy=multi-user.target" > /etc/systemd/system/$app.service
+WantedBy=multi-user.target" > /etc/systemd/system/"$app".service
 
 fi
 
@@ -92,5 +91,5 @@ fi
 #=================================================
 
 echo "Enable services"
-systemctl enable $app.service
-systemctl start $app.service
+systemctl enable "$app".service
+systemctl start "$app".service
