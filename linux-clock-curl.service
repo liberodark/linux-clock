@@ -1,0 +1,17 @@
+[Unit]
+Description=linux-clock
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/bin/
+User=root
+Group=users
+Type=simple
+UMask=000
+ExecStart=/usr/bin/date +"%d %b %Y %T %Z" -s "$(curl -s --head https://google.com | grep '^Date:' | cut -d' ' -f 3-)" && /usr/sbin/hwclock -w
+TimeoutSec=30
+RestartSec=6h
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
